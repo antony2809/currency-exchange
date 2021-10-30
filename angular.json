@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "projects": {
+    "currency-exchange": {
+      "projectType": "application",
+      "root": "apps/currency-exchange",
+      "sourceRoot": "apps/currency-exchange/src",
+      "prefix": "currency-exchange",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/currency-exchange",
+            "index": "apps/currency-exchange/src/index.html",
+            "main": "apps/currency-exchange/src/main.ts",
+            "polyfills": "apps/currency-exchange/src/polyfills.ts",
+            "tsConfig": "apps/currency-exchange/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/currency-exchange/src/favicon.ico",
+              "apps/currency-exchange/src/assets"
+            ],
+            "styles": ["apps/currency-exchange/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/currency-exchange/src/environments/environment.ts",
+                  "with": "apps/currency-exchange/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "currency-exchange:build:production"
+            },
+            "development": {
+              "browserTarget": "currency-exchange:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "currency-exchange:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/currency-exchange/src/**/*.ts",
+              "apps/currency-exchange/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/currency-exchange"],
+          "options": {
+            "jestConfig": "apps/currency-exchange/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "currency-exchange-e2e": {
+      "root": "apps/currency-exchange-e2e",
+      "sourceRoot": "apps/currency-exchange-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/currency-exchange-e2e/cypress.json",
+            "devServerTarget": "currency-exchange:serve:development",
+            "tsConfig": "apps/currency-exchange-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "currency-exchange:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/currency-exchange-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["currency-exchange"]
+    }
+  }
+}
