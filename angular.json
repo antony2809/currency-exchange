@@ -29,7 +29,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "650kb",
                   "maximumError": "1mb"
                 },
                 {
@@ -123,6 +123,123 @@
       },
       "tags": [],
       "implicitDependencies": ["currency-exchange"]
+    },
+    "data-rates": {
+      "root": "libs/data/rates",
+      "sourceRoot": "libs/data/rates/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/data/rates/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/data/rates"],
+          "options": {
+            "jestConfig": "libs/data/rates/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": ["scope:data"]
+    },
+    "features-rates-conversion": {
+      "root": "libs/features/rates/conversion",
+      "sourceRoot": "libs/features/rates/conversion/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/features/rates/conversion/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/rates/conversion"],
+          "options": {
+            "jestConfig": "libs/features/rates/conversion/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": ["scope:feature"]
+    },
+    "features-rates-conversion-history": {
+      "root": "libs/features/rates/conversion-history",
+      "sourceRoot": "libs/features/rates/conversion-history/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/rates/conversion-history/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/rates/conversion-history"],
+          "options": {
+            "jestConfig": "libs/features/rates/conversion-history/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": ["scope:feature"]
+    },
+    "platform-storage": {
+      "root": "libs/platform/storage",
+      "sourceRoot": "libs/platform/storage/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/platform/storage/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/platform/storage"],
+          "options": {
+            "jestConfig": "libs/platform/storage/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": ["scope:platform"]
+    },
+    "utilities": {
+      "root": "libs/utilities",
+      "sourceRoot": "libs/utilities/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/utilities/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/utilities"],
+          "options": {
+            "jestConfig": "libs/utilities/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": ["scope:utils"]
     }
   }
 }

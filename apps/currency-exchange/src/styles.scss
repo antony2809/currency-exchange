@@ -1,1 +1,137 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+
+$default-text-color: #404040;
+$table-header-color: #8d8d8d;
+
+$lighter-shades-color: rgba(black, 0.87);
+$darker-shades-color: white;
+$primary-color: #009668;
+$accent-color: #95c720;
+
+$fontConfigurations: mat.define-typography-config(
+  $display-2: mat.define-typography-level(48px, 48px, 400, 'Roboto', 0em),
+  $display-1: mat.define-typography-level(34px, 40px, 400, 'Roboto', 0.0074em),
+  $headline: mat.define-typography-level(24px, 32px, 500, 'Roboto', 0em),
+  $body-1: mat.define-typography-level(16px, 16px, 400, 'Roboto', 0em),
+);
+
+// Primary palette shades based on #009668
+$primary-palette: (
+  50: #dff2ec,
+  100: #b2dfcf,
+  200: #81cbb0,
+  300: #4fb692,
+  400: #29a67c,
+  500: #009668,
+  600: #00895e,
+  700: #00794f,
+  800: #006942,
+  900: #004d28,
+  contrast: (
+    50: $lighter-shades-color,
+    100: $lighter-shades-color,
+    200: $lighter-shades-color,
+    300: $lighter-shades-color,
+    400: $lighter-shades-color,
+    500: $darker-shades-color,
+    600: $darker-shades-color,
+    700: $darker-shades-color,
+    800: $darker-shades-color,
+    900: $darker-shades-color,
+  ),
+);
+
+// Accent palette shades based on 94C720
+$accent-palette: (
+  50: #f3f8e6,
+  100: #e1eec1,
+  200: #cce399,
+  300: #b7d86e,
+  400: #a5cf4a,
+  500: #95c720,
+  600: #85b717,
+  700: #6ea307,
+  800: #599000,
+  900: #2f6e00,
+  contrast: (
+    50: $lighter-shades-color,
+    100: $lighter-shades-color,
+    200: $lighter-shades-color,
+    300: $lighter-shades-color,
+    400: $lighter-shades-color,
+    500: $lighter-shades-color,
+    600: $lighter-shades-color,
+    700: $darker-shades-color,
+    800: $darker-shades-color,
+    900: $darker-shades-color,
+  ),
+);
+
+$warn-palette: (
+  50: #fdebf0,
+  100: #fcccd7,
+  200: #ed97a2,
+  300: #e36e7e,
+  400: #ef4860,
+  500: #f62e49,
+  600: #e62447,
+  700: #d41840,
+  800: #c70d38,
+  900: #b8002d,
+  contrast: (
+    50: $lighter-shades-color,
+    100: $lighter-shades-color,
+    200: $lighter-shades-color,
+    300: $lighter-shades-color,
+    400: $darker-shades-color,
+    500: $darker-shades-color,
+    600: $darker-shades-color,
+    700: $darker-shades-color,
+    800: $darker-shades-color,
+    900: $darker-shades-color,
+  ),
+);
+
+$currency-exchange-primary: mat.define-palette($primary-palette, 500, 50, 900);
+$currency-exchange-accent: mat.define-palette($accent-palette, 500, 50, 900);
+$currency-exchange-warn: mat.define-palette($warn-palette, 800, 50, 900);
+
+$currency-exchange-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $currency-exchange-primary,
+      accent: $currency-exchange-accent,
+      warn: $currency-exchange-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($currency-exchange-theme);
+@include mat.core($fontConfigurations);
+
+html,
+body {
+  height: 100%;
+  color: $default-text-color;
+  background-color: #f2f2f2;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+
+.text-accent {
+  color: $accent-color;
+}

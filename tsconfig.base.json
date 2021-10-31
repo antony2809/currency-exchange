@@ -14,7 +14,19 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@currency-exchange/data/rates": ["libs/data/rates/src/index.ts"],
+      "@currency-exchange/features/rates/conversion": [
+        "libs/features/rates/conversion/src/index.ts"
+      ],
+      "@currency-exchange/features/rates/conversion-history": [
+        "libs/features/rates/conversion-history/src/index.ts"
+      ],
+      "@currency-exchange/platform/storage": [
+        "libs/platform/storage/src/index.ts"
+      ],
+      "@currency-exchange/utilities": ["libs/utilities/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

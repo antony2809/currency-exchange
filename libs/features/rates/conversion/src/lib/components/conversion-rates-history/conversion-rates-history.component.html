@@ -1,0 +1,112 @@
+<ng-container
+  *ngIf="{
+    items: items$ | async,
+    statistics: statistics$ | async,
+    chart: chart$ | async,
+    section: currentSection$ | async,
+    loading: loading$ | async
+  } as ctx"
+>
+  <div class="py-6 flex flex-col space-y-3">
+    <h2 class="mat-headline">Exchange History</h2>
+    <div class="flex space-x-10 items-center">
+      <mat-form-field>
+        <mat-label>Duration</mat-label>
+        <mat-select [formControl]="dayControl">
+          <mat-option *ngFor="let day of days" [value]="day">
+            {{ day }} days
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-radio-group class="flex space-x-6" (change)="onRadioChange($event)">
+        <mat-radio-button [checked]="ctx.section === 'table'" value="table"
+          >Table</mat-radio-button
+        >
+        <mat-radio-button [checked]="ctx.section === 'chart'" value="chart"
+          >Chart</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+    <ng-container [ngSwitch]="ctx.section">
+      <ng-container *ngSwitchCase="'chart'">
+        <apx-chart
+          [series]="ctx.chart.series"
+          [chart]="ctx.chart.chart"
+          [stroke]="ctx.chart.stroke"
+          [yaxis]="ctx.chart.yaxis"
+          [fill]="ctx.chart.fill"
+        ></apx-chart>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <div class="flex space-x-6">
+          <div class="flex-grow">
+            <table
+              mat-table
+              [dataSource]="ctx.items"
+              class="mat-elevation-z2 w-full"
+            >
+              <ng-container matColumnDef="timestamp">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.timestamp | date: 'dd/MM/yyyy' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="rate">
+                <th mat-header-cell *matHeaderCellDef>Exchange Rate</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.rate | number: '1.4-6' }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+          </div>
+
+          <div class="flex-grow">
+            <table
+              mat-table
+              [dataSource]="ctx.statistics"
+              class="mat-elevation-z2 w-full"
+            >
+              <ng-container matColumnDef="label">
+                <th colspan="2" mat-header-cell *matHeaderCellDef>
+                  Statistics
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.label }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="rate">
+                <td mat-cell *matCellDef="let element">
+                  {{ element.rate | number: '1.3-6' }}
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="statisticsDisplayedColumns"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: statisticsDisplayedRows"
+              ></tr>
+            </table>
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <ng-template #loader
+    ><div class="flex justify-center py-6" *ngIf="ctx.loading">
+      <mat-progress-spinner
+        [diameter]="24"
+        color="primary"
+        mode="indeterminate"
+      >
+      </mat-progress-spinner></div
+  ></ng-template>
+</ng-container>

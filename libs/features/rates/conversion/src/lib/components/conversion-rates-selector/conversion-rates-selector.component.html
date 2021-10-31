@@ -1,0 +1,61 @@
+<ng-container
+  *ngIf="{ fromRates: fromRates$ | async, toRates: toRates$ | async } as ctx"
+>
+  <form [formGroup]="form">
+    <h1 class="mat-display-2 font-bold">I want to convert</h1>
+    <div class="flex space-x-4 items-center justify-even">
+      <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input type="number" matInput formControlName="amount" />
+      </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>From</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="fromCurrency"
+          [matAutocomplete]="from"
+        />
+        <mat-autocomplete autoActiveFirstOption #from="matAutocomplete">
+          <mat-option
+            *ngFor="let rate of ctx.fromRates"
+            [value]="rate.currency"
+          >
+            {{ rate.currency }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button
+        type="button"
+        (click)="switchRates()"
+        mat-raised-button
+        class="uppercase"
+        color="secondary"
+      >
+        <mat-icon>compare_arrows</mat-icon>
+      </button>
+      <mat-form-field class="flex-grow">
+        <mat-label>To</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="toCurrency"
+          [matAutocomplete]="to"
+        />
+        <mat-autocomplete autoActiveFirstOption #to="matAutocomplete">
+          <mat-option *ngFor="let rate of ctx.toRates" [value]="rate.currency">
+            {{ rate.currency }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button
+        (click)="convertRates()"
+        mat-raised-button
+        class="uppercase"
+        color="primary"
+      >
+        Convert
+      </button>
+    </div>
+  </form>
+</ng-container>

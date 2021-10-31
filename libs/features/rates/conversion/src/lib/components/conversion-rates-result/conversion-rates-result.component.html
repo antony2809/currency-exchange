@@ -1,0 +1,25 @@
+<ng-container *ngIf="result">
+  <div class="my-16">
+    <div class="flex justify-center flex-col items-center">
+      <h1 class="mat-display-2">
+        {{ result.amount }} {{ result.fromCurrency }} =
+        <strong class="text-accent"
+          >{{ result.amountConverted | number: '1.4-8' }}
+          {{ result.toCurrency }}</strong
+        >
+      </h1>
+      <div class="mt-4 text-center font-medium">
+        <p>
+          1 {{ result.fromCurrency }} =
+          {{ result.oneFromCurrencyConverted | number: '1.8' }}
+          {{ result.toCurrency }}
+        </p>
+        <p>
+          1 {{ result.toCurrency }} =
+          {{ result.oneToCurrencyConverted | number: '1.8' }}
+          {{ result.fromCurrency }}
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-container>

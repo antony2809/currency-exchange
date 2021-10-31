@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "currencyExchange",
+            "prefix": "ce",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "currency-exchange",
+            "prefix": "ce",
             "style": "kebab-case"
           }
         ]
